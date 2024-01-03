@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Invitify</title>
+    </head>
+
+    <body>
+
+        <h1>Invitee</h1>
+        <h2>Invite List -- <span id ="count"></span></h2>
+        <ul id ="Listing"> 
+
+        </ul>
+         <h2>Add Invitee</h2>
+         <form id = "myForm"  method=" " action =" ">
+            <label>Name</label><br />
+            <input type = "text" /><br />
+
+            <label>Mobile</label><br />
+            <input type="text" /><br /> 
+
+            <input type ="submit" /> 
+         </form>
+        <script>
+             const contacts =[]
+
+             const countHandle = document.getElementById("count")
+             countHandle.textContent = contacts.length
+
+
+        </script>
+    </body>
+</html>

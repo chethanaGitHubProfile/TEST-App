@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Handle form submission</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+
+            <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+
+                /*
+                    1. Create a Myname component
+                    2. The component should return a form
+                    3. There should be submit button
+                    4. When the form is submitted, display the entered name and its length.
+
+                */
+               const {useState} = React
+ 
+                function Myname(props)
+                {
+                    const [name,setName] = useState("")
+
+                    const handleNameChange =(e) =>
+                    {
+                        const nameInput = e.target.value
+                        setName(nameInput)
+
+                    }
+
+                    const handleSubmit =(e) =>
+                    {
+                        e.preventDefault()
+                        alert(`${name} has ${name.length} characters`)
+                    }
+
+                    return(
+                        <div>
+                                <form onSubmit = {handleSubmit}>
+                                     <label>enter the name</label>
+                                     <input  type ="text" value ={name} onChange ={handleNameChange}/> <br />
+                                     <h1>{name}</h1>
+                                     <input type = "submit" value = "Calc length"/>
+                                </form>
+                        </div>
+                    )
+                }
+
+                ReactDOM.render(<Myname />,rootHandle)
+            </script>
+    </body>
+</html>

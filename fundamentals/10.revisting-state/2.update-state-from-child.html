@@ -1,0 +1,179 @@
+            <!DOCTYPE html>
+            <html>
+                <head>
+                    <title>Pass state to child component</title>
+                </head>
+
+                <body>
+                    <div id = "root"></div>
+
+                    <script src="../js/react.development.js"></script>
+                    <script src="../js/react-dom.development.js"></script>
+                    <script src="../js/babel.js"></script>
+
+
+                    <script type ="text/babel">
+
+                        const rootHandle = document.getElementById("root")
+                        /* 
+                            1. Declare a function - removeItem (callback function) inside the MyCart
+                            2. pass the function as props to the child component
+                            3. write an event handler for the remove button inside the cartItem
+                            4. Invoke the function (removeItem) by passing the id
+                            5. Inside teh function, write logic to remove the item from the cart. 
+                            6.update the state.
+
+                            INCREMENT QUANTITY
+
+                            1. Declare a function - inQuantity (call back function) inside MyCart
+                            2. Pass the function as props to the child component (CartItem)
+                            3. Write an event handler for the + button inside the CartItem
+                            4. Invoke the function (inQuantity) by pass the id
+                            5. Inside the function, write logic to update teh quantity for the item
+                            6. update the state.
+                        
+                        */
+
+                            const {useState} = React 
+
+                            function PriceDetails(props)
+                            {
+                                //console.log(props)
+
+                                const {TotalItems,CartTotal} = props
+                                const deliveryCharge = 100
+
+
+                                return(
+                                    <div>
+                                        <h3>Price Details</h3>
+                                        <b>Price ({TotalItems} items) - {CartTotal}</b> <br/>
+                                        <b>Delivery Charge - {deliveryCharge}</b>
+                                        <b>Total - {CartTotal + deliveryCharge}</b> 
+                                    </div>
+                                )
+                            }
+
+                            function CartItem(props)
+                            {
+                                console.log(props)
+                                const {id,name,price,quantity,removeItem,inQuantity} = props
+                                return(
+                                    <div>
+                                            <p>cart item</p>
+                                            <b> {name}</b>
+                                            <p>INR {price}</p>
+                                            <button onClick = {() => {
+                                                decQuantity(id)
+                                            }}>-</button>{quantity}<button onClick = {() =>
+                                            inQuantity(id)}> + </button>
+
+                                            <button onClick ={() => {
+                                                removeItem(id)
+                                            }}> Remove  </button>
+                                            <hr />
+                                        
+                                    </div>
+                                )
+                            }
+
+                            function MyCart(props)
+                            {
+
+                                //state variable - products 
+                                const [products,setProducts] = useState([
+                                    {id:1, name: "marker" , price : 10, quantity :2},
+                                    {id:2, name: "pencil" , price : 30, quantity :4}
+                                ])
+
+                                const calcSum =() =>
+                                {
+                                    let sum = 0
+                                    products.forEach((prod) =>{
+                                        sum = sum + prod.price*prod.quantity
+                                    })
+                                    return sum
+                                }
+
+                                //call back 
+                                const removeItem = (id) =>
+                                {
+                                    console.log("remove item",id)
+
+                                    const result = products.filter((ele) =>{
+                                        return ele.id!=id
+                                    })
+                                    console.log(result)
+
+                                    setProducts(result)
+                                }
+
+                                const inQuantity = (id) =>
+                                {
+                                    const result = products.map((ele) =>
+                                    {
+                                        if(ele.id == id)
+                                        {
+                                            return {...ele,...{quantity:ele.quantity+1}}
+                                        } 
+                                        else{
+                                            return {...ele}
+                                        }
+                                    })
+                                    setProducts(result)
+                                }
+
+                                const decQuantity = (id) =>
+                                {
+                                         const result = products.map((ele) => {
+                                            if(ele.id == id)
+                                            {
+                                                return {...ele,...ele.quantity-1}
+                                            }
+                                            else{
+                                                return{...ele}
+                                            }
+                                         })
+                                         setProducts(result)
+                                }
+
+                                return(
+                                    <div>
+                                    
+                                        <h2>MyCart - {products.length}</h2>
+
+                                        {
+                                            products.map((prod) =>
+                                            {
+                                                                    return<CartItem key ={prod.id}
+                                                                        {...prod}
+                                                                            removeItem = {removeItem}
+                                                                            inQuantity = {inQuantity}
+                                                                    
+                                                                        />
+                                            }           )
+                                        }   
+
+                                        <PriceDetails  ToatalItems ={products.length}/>
+                                        CartTotal = {calcSum()}
+                                    </div>
+                                )
+                                
+                            }
+            
+                            
+
+                            function App(props)
+                            {
+                                return(
+                                    <div>
+                                        <h1>Cart Page</h1>
+                                        <MyCart />
+                                    </div>
+                                )
+                            }
+
+                            ReactDOM.render(<App />,rootHandle)
+                    </script>
+                </body>
+            </html>

@@ -1,0 +1,66 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Read input </title>
+        </head>
+        <body>
+            <div id ="root"></div>
+
+            <script src="../js/react.development.js"></script>
+            <script src="../js/react-dom.development.js"></script>
+            <script src="../js/babel.js"></script>
+
+            <script type ="text/babel">
+
+                const rootHandle = document.getElementById("root")
+
+                /* 
+                1. Create a UserInfo Component
+                2. Have 2 input Fields
+                        a.username 
+                        b.bio
+                3. where user types, display in a heading and paragraph tag
+
+                */
+
+                const {useState} = React 
+
+                function UserInfo(props)
+                {
+                    const [username,setUsername] = useState("")
+                    const [bio,setBio] = useState("")
+
+                    const handeUsernameChange = (e) =>
+                    {
+                        const usernameInput = e.target.value 
+                        setUsername(usernameInput)
+                    }
+
+                    const handleBioChange = (e) =>
+                    {
+                        const bioInput = e.target.value
+                        setBio(bioInput)
+                    }
+                    
+
+
+                    return( 
+                        <div>
+                            <h1>{username}</h1>
+                            <p>{bio}</p>
+
+
+                            <form>
+                                <lable>username</lable>
+                                <input type ="text" value ={username} onChange ={handeUsernameChange}/> <br />
+
+                                <label>bio</label><br />
+                                <textarea value ={bio} onChange = {handleBioChange}></textarea>
+                            </form>
+                        </div>
+                    )
+                }
+                    ReactDOM.render(<UserInfo />,rootHandle)
+            </script>
+        </body>
+    </html>

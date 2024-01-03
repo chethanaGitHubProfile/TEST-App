@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Remove User From List</title>
+    </head>
+    <body>
+
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+           <script type = "text/babel">
+                const rootHandle = document.getElementById("root")
+
+                const {useState} = React 
+
+                const usersData =[
+                    {id:1, name : "user1"},
+                    {id:2, name : "user2"},
+                    {id:3, name : "user3"},
+                    {id:4, name : "user4"},
+                    {id:5, name : "user5"}  
+                ]
+
+                function UsersList(props)
+                {
+                    const [users,setUsers] = useState(usersData)
+
+                    const removeItem = (id) => {
+                            const confirmRemove = confirm("Are you sure?", )
+                            if(confirmRemove)
+                            {
+                                const result = users.filter((user) => {
+                                return user.id !== id
+                                })
+                                setUsers(result)
+                             }
+                            }
+                    return(
+                            <div>
+                                 <h1>Listing Users - {users.length}</h1>
+                                 <ul>
+                                     {users.map((ele) =>{
+                                        return(
+                                            <li key ={ele.id}>
+                                                 {ele.name}
+
+                                                 <button onClick ={() => {
+                                                    removeItem(ele.id)
+                                                 }}>remove</button>
+                                            </li>
+                                        )
+                                     })}
+                                </ul>
+                            </div>
+                    )
+                }
+
+                    ReactDOM.render(< UsersList/>,rootHandle)
+
+        </script>
+    </body>
+</html>

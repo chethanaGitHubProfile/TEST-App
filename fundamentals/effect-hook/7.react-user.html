@@ -1,0 +1,86 @@
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>React-user</title>
+            </head>
+            <body>
+                <div id = "root"></div>
+
+
+                <script src="../js/react.development.js"></script>
+                <script src="../js/react-dom.development.js"></script>
+                <script src="../js/babel.js"></script>
+
+                <script type = "text/babel">
+
+                    const rootHandle = document.getElementById("root")
+                    const {useState,useEffect} = React 
+
+                    const App =(props) =>
+                    {
+                        const {userId,setUserId} = useState('' )
+                        const {users,setUsers} = useState({})
+                        const ids = [1,2,3,4,5,6,7,8,9,10,11,12]
+
+                        const handleChange = (e) => {
+                            setUserId(e.target.value)
+                        }
+
+                        useEffect(() =>{
+                            //console.log("use effect")
+                            //const xhr = XMLHttpRequest
+
+                            //3 stages
+                                //1.pending  - make an API call
+                                //2. fullfilled - successfull
+                                //3. rejected - error
+
+                                if(userId)
+                                {
+                                    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+
+                                    .then((Response) => 
+                                    {
+                                        return response.json()
+                                    })
+
+                                    .then((data) =>
+                                    {
+                                        console.log(data)
+                                    })
+                                    .catch((err) =>
+                                    {
+                                        alert(err.message)
+                                    })
+
+                                }
+
+                            
+
+                        },[userId]) 
+
+
+                        return( 
+                            <div>
+                                <select value = {userId} onChange ={handleChange}>
+                                <option>Select Users</option>
+                                    
+                                    {ids.map((id) => {
+                                                        return(
+                                                            <option value={id} key={id}>{id}</option>
+                                                        )
+                                                    })}
+
+                                    
+                                </select>
+
+                                {userId ? <p> {user.id} -- {user.name} -- {user.email}</p> : <h2>No user selected</h2>}
+
+                            </div>
+                        )
+                    }
+
+                    ReactDOM.render(<App />,rootHandle)
+                </script>
+            </body>
+        </html>

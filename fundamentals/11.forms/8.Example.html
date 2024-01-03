@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title>Change the color of button</title>
+        <style>
+            .blue-color
+            {
+                background : blue;
+            }
+
+            .orange-color
+            {
+                background : orange;
+            }
+    </style>
+    </head>
+    <body>
+        <div id = "root"></div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type = "text/babel">
+            const rootHandle = document.getElementById("root")
+            const {useState} = React
+
+            function App(props)
+            {
+              const [btnClass,setBtnClass] = useState("blue-color")
+
+                function toggleColor() 
+                {
+                    
+                    const result = btnClass == 'blue-color' ? 'orange-color' : 'blue-color'
+                    setBtnClass(result)
+                    {/*setBtnClass (
+                        btnClass === "blue-color "  ? "orange-color" : "blue-color"
+                    )*/}
+                }
+                return(
+                    <div>
+                        <h2>Change the color of button</h2>
+                        
+                                <button onClick ={toggleColor} className = {`${btnClass}`}>Submit</button>
+                    
+                    </div>
+                )
+
+            }
+
+                ReactDOM.render(<App />,rootHandle)
+
+        </script>
+
+        
+    </body>
+</html>

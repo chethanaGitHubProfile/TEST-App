@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Counte 2</title>
+    </head>
+
+    <body>
+        <div  id ="root"></div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+                    const rootHandle = document.getElementById("root")
+
+                    const {useState} = React
+
+                    function Counter(props)
+                    {
+                        //declare state variable
+
+                        const [count,setCount] = useState(10)
+                        console.log(count,setCount)
+                        return(
+                            <div>
+                                    <h2>{count}</h2>
+                                    <button onClick = {() => {
+                                         setCount(count +1)
+                                    }}>+1</button>
+
+
+                                    <button onClick = {() => {
+                                        setCount(count-1)
+                                    }}>-1</button>
+
+                                    <button onClick ={() => {
+                                        const count =0
+                                        setCount(count )
+                                    }}>r eset</button>
+                            </div>
+                        )
+                    }
+
+                    ReactDOM.render(<Counter />,rootHandle)
+
+             </script>
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Track</title>
+    </head>
+
+    <body>
+        <div id ="root"></div>
+   
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+             <script type ="text/babel">
+
+                const rootHandle = document.getElementById("root")
+
+                const {useState} = React
+
+                /* 
+                    1. Create a track click component
+                    2. Maintain 2 state values, one for count and another for clicks
+                    3. Render the count and clicks variables on the screen.
+                    4. Add 2 buttons - up and down
+                    5. When the user clicks on the up button. increment the value of count and click 
+                    6. when the user clicks on the down button. decrement the value of count and increment clicks
+                */
+
+                    function TrackClick(props)
+                    {
+                        const [count,setCount] = useState(0)
+                        const [clicks,setClicks] = useState(0)
+
+                        //call back function
+
+                        const increment =() =>
+                        {
+                            setCount(count + 1)
+                            setClicks(clicks + 1)
+                        }
+
+                        const decrement =() =>
+                        {
+                            setCount(count - 1)
+                            setClicks(clicks + 1)
+                        }
+                        return(
+                            <div>
+                                 <h1>Count - {count} Clicks - {clicks}</h1>
+                                 <button onClick ={increment}>Up</button>
+                                 <button onClick ={decrement}>Down</button>
+
+                            </div>
+                        )
+                    }
+
+                    ReactDOM.render(<TrackClick />,rootHandle)
+             </script> 
+    </body>
+</html>

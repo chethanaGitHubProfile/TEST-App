@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List Employee</title>
+    </head>
+
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type ="text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const {useState} = React
+
+            function EmployeeList(props)
+            {
+               const [employees] = props
+               
+            } 
+
+            function EmployeeContainer(props)
+            {
+                const [employees,setEmployees] = useState([
+                        {id:1, name :"Emplyee 1", gender: "male"},
+                        {id:2, name :"Emplyee 2", gender: "female"},
+                        {id:3, name :"Emplyee 3", gender: "male"},
+                        {id:4, name :"Emplyee 4", gender: "female"},
+                        {id:5, name :"Emplyee 5", gender: "male"},
+                        {id:6, name :"Emplyee 6", gender: "male"}
+                    ])
+
+                return(
+                    <div>
+                            <h1>List Employee</h1>
+                            <EmoloyeeList employees ={employees}/>
+
+                    </div>
+                )
+            }
+
+            ReactDOM.render(<EmployeeContainer />,rootHandle)
+
+        </script>
+    </body>
+</html>

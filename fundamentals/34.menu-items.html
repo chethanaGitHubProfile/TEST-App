@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Menu Items</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+    </body>
+
+    <script src="js/react.development.js"></script>
+    <script src="js/react-dom.development.js"></script>
+    <script src="js/babel.js"></script> 
+
+        <script type = "text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+
+                function MenuItem(props)
+                {
+                    const {id, name,image, isVeg, price} = props
+                    //console.log(props)
+                    return(
+                            <div>
+                                  <h2>{isVeg ? <IsVeg /> : <IsNonVeg />}{name}</h2>
+                                  <ItemPic imageUrl ={image} name = {name}/>
+                                  <p>INR {price}</p>
+                            </div>
+                    )
+                }
+
+                function IsVeg(props)
+                {
+                    return <img src ="https://i.ibb.co/kQQyRwP/veg.png" alt = "Veg icon"/>
+                }
+
+                function IsNonVeg(props)
+                {
+                    return <img src ="https://i.ibb.co/stN0gCz/non-veg.png" alt ="NonVeg icon" />
+                }
+
+                function ItemPic(props)
+                {
+                    const {imageUrl,name} = props
+                    return <img src= {imageUrl} alt ={name} />
+                }
+                function App(props)
+                {
+                    const menuItems = [
+                        {id:1, name:"Allo dum Biryani", price: 114, isVeg: true, image : "https://www.pngwing.com/en/search?q=biryani"},
+                        {id:2, name:"chicken kebab", price: 120, isVeg: false, image:"https://www.pngwing.com/en/search?q=kebab"},
+                        {id:3, name:"chicken lollipop", price: 200, isVeg: false, image: "https://www.pngwing.com/en/search?q=Chicken+lollipop"},
+                        {id:4, name:"chicken biryani", price :200, isVeg : false, image: "https://www.pngwing.com/en/search?q=biryani"}
+                    ]
+
+
+                         return(
+                                 <div>
+                                        <h1>Menu Item</h1>
+                                        {menuItems.map((item) => {
+                                                return <MenuItem key ={item.id} {...item} />
+                                        })}
+                                </div>
+                                )
+                    
+                }
+
+                ReactDOM.render(<App />,rootHandle)
+
+        </script>
+</html>

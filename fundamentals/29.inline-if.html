@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display user list</title>
+    </head>
+        <body>
+            <div id ="root"></div>
+
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+
+
+                function StudentLinks(props)
+                {
+                    return(
+                        <div>
+                            <a href ="/students/show/1">Show</a>
+                            {
+                                props.user.role==="admin" && <a href ="/students/delete/1">Delete</a>
+                            }
+                        </div>
+                    )
+                }
+                function App(props){
+                    const user ={
+                        id:1,
+                        name : "user1",
+                        role : "admin"  
+                    }
+                
+                    return(
+                        <div>
+                            <h2>Student Management System</h2>
+                            <StudentLinks user ={user}/>
+                        </div>
+                    )
+                }
+            
+                    ReactDOM.render(<App />,rootHandle)
+            </script>
+        </body>
+</html>

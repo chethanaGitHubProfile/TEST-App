@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <title></title>
+     </head>
+    <body>
+
+        <div id ="root"></div>
+
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script> 
+
+         <script type = "text/babel">
+            const rootHandle = document.getElementById("root")
+
+            const { useState } = React 
+        const Register = (props) => {
+            const [username, setUsername] = useState('')
+            const [email, setEmail] = useState('')
+            const [password, setPassword] = useState('')
+            const [passwordConfirmation, setPasswordConfirmation] = useState('')
+            const [formErrors, setFormErrors] = useState({ })
+           
+            const handleUsernameChange = (e) => {
+                setUsername(e.target.value)
+            }
+            const errors = {}
+            
+            const runValidations = () => {
+
+                if(username.length == 0) {
+                    errors.username = 'username is required'
+                }
+
+                if(email.length == 0){
+                    errors.email = 'email is required'
+                }
+
+                if(password.length == 0) {
+                    errors.password = 'password is required'
+                } else if(password.length < 8 || password.length > 128 ) {
+                    errors.password = 'password must be between 8 - 128 characters'
+                }
+
+                if(passwordConfirmation.length == 0) {
+                    errors.passwordConfirmation = 'password confirmation is required'
+                } else if(password !== passwordConfirmation) {
+                    errors.passwordConfirmation = 'password confirmation does not match'
+                }
+            }
+
+            const handleSubmit = (e) => {
+                e.preventDefault()
+                // run validations
+                runValidations()
+                if(Object.keys(errors).length == 0) {
+                    const formData = { // es6 concise properties
+                        username,
+                        email,
+                        password,
+                        passwordConfirmation
+                    }
+                    console.log(formData) 
+                    setFormErrors({})
+                } else {
+                    setFormErrors(errors) 
+                }
+            }
+
+            return (
+                <div>
+                    <h2>Register with us </h2> 
+                    <form onSubmit={handleSubmit}> 
+                        <label htmlFor="username"> username </label> <br /> 
+                        <input 
+                            type="text" 
+                            value={username} 
+                            id="username" 
+                            onChange={handleUsernameChange} 
+                        /> 
+                        { formErrors.username && <span> { formErrors.username } </span> }
+                        <br />
+
+                        <label htmlFor="email"> email </label> <br />
+                        <input 
+                            type="text" 
+                            value={email} 
+                            id="email" 
+                            onChange={(e) => {
+                            setEmail(e.target.value) 
+                        }} /> 
+                        {formErrors.email && <span> {formErrors.email} </span>}
+                        <br />
+
+                        <label htmlFor="password"> password </label> <br />
+                        <input
+                            type="password"
+                            value={password}
+                            id="password"
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                        }} /> 
+                        {formErrors.password && <span> {formErrors.password} </span>}
+                        <br />
+
+                        <label htmlFor="passwordConfirmation"> confirm your password </label> <br />
+                        <input
+                            type="password"
+                            value={passwordConfirmation}
+                            id="passwordConfirmation"
+                            onChange={(e) => {
+                                setPasswordConfirmation(e.target.value)
+                        }} /> 
+                        {formErrors.passwordConfirmation && <span> {formErrors.passwordConfirmation} </span>}
+                        <br />
+    
+                        <input type="submit" /> 
+                       
+                    </form> 
+                </div> 
+            )
+        }
+
+        ReactDOM.render(<Register />, rootHandle)
+         </script>
+    </body>
+</html>

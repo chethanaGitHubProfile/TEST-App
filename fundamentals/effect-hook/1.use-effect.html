@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>use-effect</title>
+    </head>
+        <body>
+            <div id ="root"></div>
+    
+            <script src="../js/react.development.js"></script>
+            <script src="../js/react-dom.development.js"></script>
+            <script src="../js/babel.js"></script>
+
+            
+                    <script type = "text/babel">
+                         const rootHandle = document.getElementById("root")
+
+                       const {useEffect} = React 
+
+                    function SmapleComponent(props) 
+                    {
+                        useEffect(() =>{
+                            alert("Component Rendered")
+                        }) 
+                        return(
+                            <div>
+                                <h1>Sample Component</h1>
+                            </div>
+                        )
+                    }
+
+                    ReactDOM.render(<SmapleComponent />,rootHandle)
+
+    </script>
+  
+        </body>
+</html>

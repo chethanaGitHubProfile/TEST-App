@@ -1,0 +1,167 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>Enquiry Form</title>
+        </head>
+
+        <body>
+            <div id ="root"></div>
+        </body>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+
+            <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+                const {useState} = React 
+
+                
+
+                function EnquiryForm(props)
+                {
+                    const [name,setName] = useState("")
+                    const [email,setEmail] = useState("")
+                    const [message,setMessage] = useState("")
+                    const professions = ["wokring" ,"NonWorking"]
+                    const [profession,setProfession] = useState("")
+                    const [addType,setAddType] = useState("")
+                    const [gender,setGender] = useState("")
+                    const [accept,setAccept] = useState("")
+                    const [isSubmitted,setIssubmitted] = useState(false)
+                    const [showMessageInfo,setMessageInfo] = useState(false)
+                    const [emailFocus,setEmailFocus] = useState(false)
+
+                    const handleNameChange = (e) =>
+                {
+                        const nameInput = e.target.value 
+                        setName(nameInput)
+                    }
+                    
+                    const handleEmailChange =(e) =>
+                    {
+                        const emailInput = e.target.value 
+                        setEmail(emailInput)
+                    }
+
+                    const handleMessageChange =(e) =>
+                    {
+                        const messageInput = e.target.value
+                        setMessage(messageInput)
+                    }
+
+
+                    const handleProfessionChange = (e) =>
+                    {
+                        const professionInput = e.target.value
+                        setProfession(professionInput)
+                    }
+
+                    const handleAddTypeChange = (e) =>
+                    {
+                        const addTypeInput = e.target.value 
+                        setAddType(addTypeInput)
+                    }
+
+                    const handleAcceptChange = (e) =>
+                    {
+                        console.log(e.target.checked)
+                        const acceptInput = e.target.checked 
+                        setAccept(acceptInput)
+                    }
+
+                    const handleMessageFocus = ()=>
+                    {
+                        setMessageInfo(true)
+                    }
+
+                    const handleMessageBlur = () =>
+                    {
+                        setMessageInfo(false)
+                    }
+
+                    const handleEmailFocus = () =>
+                    {
+                        setEmailFocus(true)
+                    }
+
+                    const handleEmailBlur = () =>
+                    {
+                         (false)
+                    }
+
+
+                    const handleSubmit =(e) =>
+                    {
+                        e.preventDefault() 
+                        //setIsSubmitted(isSubmitted)
+
+                        //display in console
+
+                        const formData ={
+                            name :name,
+                            email : email,
+                            message :message,
+                            profession : profession,
+                            gender : gender,
+                            accept : accept
+                        }
+                        console.log("form data",formData)
+                    }
+
+                    return(
+                            <div>
+                                <h2>Enquiry Form</h2>
+                                <form onSubmit = {handleSubmit}>
+
+                                <label>name</label><br />
+                                <input type ="text" value ={name} onChange ={handleNameChange}  /><br />
+
+
+                                <label>Email</label><br />
+                                <input type ="text" value ={email} onChange ={handleEmailChange} onFocus = {handleEmailFocus} onBlur ={handleEmailBlur}/> 
+                                {
+                                    emailFocus && <span>enter your Email id</span> 
+                                }
+                                <br />
+
+                                <label>Message</label><br />
+                                <textarea value ={message} onChange ={handleMessageChange} onFocus ={handleMessageFocus} onBlur ={handleMessageBlur}>Message</textarea>
+
+                                {
+                                    showMessageInfo && <span>Enter your education background and objects, so that we can understand you better</span>
+
+                                }
+                                <br />
+
+                                <label>Profession</label><br />
+                                <select value = {profession} onChange ={handleProfessionChange}>
+                                    <option>status</option>
+                                
+                                {
+                                    professions.map((ele,id) => {
+                                        return <option value ={ele} key ={id}>{ele}</option>
+                                    })
+                                } 
+                                </select> <br />
+
+                                <label>Gender</label>
+                                <input  type ="radio" name = "addType" value = "male" checked ={addType == "male"} onChange ={handleAddTypeChange}/>Male
+                                <input  type ="radio" name ="addType" value = "female" checked = {addType == "female"}  onChange ={handleAddTypeChange}/>Female <br />
+
+                                 
+                                <input type ="checkbox"  checked ={accept} onChange ={handleAcceptChange}/>
+                                <label>Agree terms & conditions</label>  <br />
+
+                                <input type ="submit" value ="Submit Enquiry"/>
+
+                                
+                                </form>
+                            </div>
+                    
+                    )
+                }            
+
+                ReactDOM.render(<EnquiryForm />,rootHandle)
+            </script>
+    </html>

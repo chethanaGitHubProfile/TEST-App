@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>react-user-post</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type ="text/babel">
+            const rootHandle = document.getElementById("root")
+
+
+            const App = (props) =>
+            {
+                const {useState,useEffect} = React
+
+                const [postId,setPostId] = useState('')
+                const [post,setPost] = useState({})
+                const [user,setUser] = useState({})
+
+                const handleChange =(e) =>
+                {
+                    setPostId(e.target.value)
+                }
+
+                const handleSubmit = (e) =>
+                {
+                    e.preventDefault()
+                    console.log(postId)
+                    
+                    const xhr = new XMLHttpRequest()
+                    xhr.open('GET',`https://jsonplaceholder.typicode.com/posts/${postId}`)
+                    xhr.send()
+
+                    xhr.onload = function()
+                        {
+                            const postInfo = JSON.parse(xhr.responseText)
+                            console.log(postInfo)
+                            setPost(postInfo)
+                        }
+                    
+                }
+
+                useEffect(() =>
+                {
+                    if(post.userId)
+                    {
+                        const xhr = new XMLHttpRequest()
+                        xhr.open('GET',`https://jsonplaceholder.typicode.com/posts/${post.userId}`)
+                        xhr.send()
+
+                        xhr.onload = function()
+                        {
+                            setUser(JSON.parse(xhr.responseText))
+                        }
+                    }
+                },[post])
+
+               
+
+                return(
+                    <div>
+                        <form onSubmit = {handleSubmit}>
+                            <label>Enter post Id</label>
+                            <input type ="text" value ={postId}  onChange = {handleChange}/><br />
+
+                            <input type = "submit" />
+
+                        </form>
+                        {
+                            (Object.keys(post).length > 0 && Object.keys(user).length>0 && <p>{post.title} written by {user.name}</p>)
+                         }
+
+                       
+                    </div>
+                )
+            } 
+
+
+            ReactDOM.render(<App />,rootHandle)
+
+        </script>
+    </body>
+</html>

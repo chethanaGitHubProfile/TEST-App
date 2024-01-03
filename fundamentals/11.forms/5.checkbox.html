@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How to work with checkbox</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+
+        <script type ="text/babel">
+            const rootHandle = document.getElementById("root")
+            const {useState} = React 
+
+            /* 
+                1. create a component called as TableReservation
+                2. The component returns a form, the form contains input field like
+                    *username
+                    *veg option
+                3. The user can submit the form
+                4. In an alert box show user selected veg option or not.
+            */
+
+
+            function TableReservation(props)
+            {
+                const [username,setUserName] = useState("")
+                const [vegOption,setVegOption] = useState(false)
+
+                const handleUserNameChange = (e) =>
+                {
+                    const usernameInput = e.target.value 
+                    setUserName(usernameInput)
+                }
+
+                const handleSubmit = (e) =>
+                {
+                    e.preventDefault()
+                    alert(`${username} Veg preferred - ${vegOption ? "Yes" : "No"}`)
+                }
+
+                const handleVegOptionChange = (e) =>
+                {
+                    console.log(e.target.checked)
+                    const vegOptionInput = e.target.checked
+                    setVegOption(vegOptionInput)
+                }
+
+                return(
+                    <form onSubmit ={handleSubmit}>
+                            <label>username</label>
+                            <input type ="text" value ={username} onChange ={handleUserNameChange}/><br />
+
+                            <input  type ="submit" value ="reserve"/><br />
+
+                            <label>Veg Only</label>
+                            <input  type = "checkbox" checked = {vegOption} onChange = {handleVegOptionChange}/>
+                    </form>
+                )
+            }
+
+            ReactDOM.render(<TableReservation />,rootHandle)
+        </script>
+    </body>
+</html>

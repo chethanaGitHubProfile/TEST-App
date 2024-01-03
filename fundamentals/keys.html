@@ -1,0 +1,31 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>display-list</title>
+        </head>
+        <body>
+            <div id ="root"></div>
+        <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const fruits = ["apple","mango","kiwi","banana","apple"]
+
+            const ele =(
+                <ul>
+                    {fruits.map((ele,i) =>{
+                        return <li key ={i}>{ele}</li>
+                    })}
+                </ul>
+            )
+
+
+            ReactDOM.render(ele, rootHandle)
+            
+            </script>
+        </body>
+    </html>

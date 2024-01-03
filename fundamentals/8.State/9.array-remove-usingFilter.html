@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Array remove element using filter method</title>
+    </head>
+
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script> 
+
+
+                 <script type ="text/babel">
+                            const rootHandle = document.getElementById("root")
+
+                            const {useState} = React 
+
+                            function RandomNumber(props)
+                            {
+
+                                const addItem =() =>
+                            {
+                                const random = Math.round(Math.random()*100) 
+                                const newArray = [...numbers, random]
+                                setNumbers(newArray) 
+
+                            }
+
+                            const removeItem = (index) =>
+                            {
+                                const result = numbers.filter((ele,i) => 
+                                {
+                                    return i != index
+                                })
+                                setNumbers(result)
+                            }
+                                const [numbers,setNumbers] = useState([])
+                                return(
+                                    <div>
+                                        <h1>Total -{numbers.length}</h1>
+                                        <button onClick = {addItem}>Add</button>
+
+                                        <ul>
+                                                {numbers.map((num,i) => 
+                                                    {
+                                                        return <li key ={i}> {num}
+                                                                     <button onClick = {() => {
+                                                                            removeItem(i)
+                                                                     }}>Remove</button>
+                                                               </li>
+                                                    })}
+                                        </ul>
+                                    </div>
+                                )
+                            }
+
+                            ReactDOM.render(< RandomNumber/>, rootHandle)
+                 </script>
+    </body>
+</html>

@@ -1,0 +1,42 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title></title>
+        </head>
+        <body>
+            <div id ="root"></div>
+
+            
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+                const rootHandle = document.getElementById("root")
+
+                function Car()
+                {
+                    return <h2>Hi,is a car</h2>
+                }
+
+                function Garage()
+                {
+                    
+                    return <h1>Who is there in my garage</h1>
+                    
+                    
+                }
+
+               const ele =(
+                    <div>
+                        <Car />
+                        <Garage />
+                    </div>
+               )
+                    
+                
+                ReactDOM.render(ele,rootHandle)
+            </script>
+        </body>
+    </html>

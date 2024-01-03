@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>prevent-render</title>
+    </head>
+        <body>
+            <div id ="root"></div>
+
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type = "text/babel">
+                    const rootHandle = document.getElementById("root")
+
+                    function PaymentInfo(props)
+                    {
+                        const {isDue} = props
+                        if(!isDue)
+                        {
+                            return null
+                        }
+ 
+                    
+                        return(
+                            <div>
+                                  {isDue && <h2> Payment Info </h2>}
+                                   
+                            </div>
+                        )
+                    }
+
+                    function App(props)
+                    {
+                        const isDue = true
+                            return(
+                                      <div>
+                                            <h1>Collect Payment</h1>
+                                            <PaymentInfo  isDue ={isDue}/>
+                                     </div>
+                                    )
+                    }
+
+                    ReactDOM.render(<App />,rootHandle)
+            </script>
+        </body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>How to set up radio button</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+
+             <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+                const {useState} = React 
+
+                /*
+                    1. Create a Component UserAddress
+                    2. The component returns a form which has 2 input field
+                        *address - textarea
+                        *type - radio button- can be either home or office
+                    3. Allow user to select only one value 
+
+                */
+
+                function UserAddress(props)
+                {
+                    const [address,setAddress] = useState("")
+                    const [addType,setAddType] = useState("")
+
+                    const handleAddressChange = (e) =>
+                    {
+                        const addressInput = e.target.value
+                        setAddress(addressInput)
+                    }
+
+                    const  handleAddTypeChange = (e) =>
+                    {
+                        const addTypeInput = e.target.value 
+                        setAddType(addTypeInput)
+                    }
+                    return(
+                        <form>
+                                <div>
+                                    <label>address</label>
+                                    <textarea value = {address} onChange ={handleAddressChange}> </textarea><br />
+
+                                    <label>Address Type</label> <br />
+                                    <input type = "radio" name ="addType" value = "home" checked ={addType == "home"} onChange ={handleAddTypeChange}/>
+                                    <input type = "radio" name = "addType" value = "office" checked = {addType == "office"} onChange ={handleAddTypeChange}/>
+                                </div>
+                        </form>
+                    )
+                }
+
+                ReactDOM.render(<UserAddress />,rootHandle)
+             </script>
+    </body>
+</html>

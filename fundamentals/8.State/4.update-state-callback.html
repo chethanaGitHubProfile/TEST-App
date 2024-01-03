@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Update state callback</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+                const rootHandle = document.getElementById("root")
+
+                const {useState} = React
+
+                function Counter(props)
+                {
+                    //declare state variabe
+                    const [count,setCount] = useState(0)
+
+                    //callback
+                    const increment =() => {
+                        setCount(count+1)
+                    }
+
+                    //callback
+
+                    const reset =() =>
+                    {
+                        const result = confirm("Are you Sure?")
+                        if(result)
+                        {
+                            setCount(0)
+                        }
+                    }
+
+                    return(
+                        <div>
+                            <h1>{count}</h1>
+                            <button onClick =  {increment}>+1</button>
+                            <button onClick = {reset}>reset</button>
+                        </div>
+                    )
+                }
+
+                ReactDOM.render(<Counter />,rootHandle )
+            </script>
+    </body>
+</html>

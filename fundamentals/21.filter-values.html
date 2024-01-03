@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display task</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script> 
+
+        <script type ="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const tasks=[
+                {id:1,title:"Task1",isCompleted:"true"},
+                {id:2,title:"Task2",isCompleted:"true"},
+                {id:3,title:"Task3",isCompleted:"false"},
+                {id:4,title:"Task4",isCompleted:"false"}
+            ]
+
+            /* Create a component called as taskList
+                pass only the complated tasks as props to the component
+                Return an unordered list of the completed task */
+
+                
+                const completedTask = tasks.filter((task) =>{
+                    return task.isCompleted 
+                })
+
+                const incompletedTasks = tasks.filter((task) =>{
+                    return task.isCompleted ===false
+                })
+                function TasksList(props){
+                    //console.log(props)
+                    return(
+                        <ul>
+                            {props.tasks.map((task) => {
+                                return <li key ={task.id}>{task.title}</li>
+                            })}
+                        </ul>
+                    )
+                }
+                    const ele =(
+                        <div>
+
+                            <h2>Completed Task</h2>
+                            <TasksList tasks={completedTask}/>
+
+                            <h2>Incompleted Task</h2>
+                            <TasksList tasks={incompletedTasks}/>
+                        </div>
+                    )
+                    
+
+                    ReactDOM.render(ele,rootHandle)
+        </script>
+    </body>
+</html>

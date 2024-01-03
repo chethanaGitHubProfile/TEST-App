@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create a note component</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type = "text/babel">
+            const rootHandle = document.getElementById("root")
+            const {useState,useEffect} = React
+
+            //2. 
+            const NoteForm =(props) =>
+            {
+                const [body,setBody] = useState('')
+                const [notes,setNotes] = useState([])
+                const {addNote} = props
+               
+
+                const handleChange =(e)=>
+               {
+                  setBody(e.target.value )
+               }
+
+               useState(() =>
+               {
+                 console.log("note form",props)
+               },[props])
+
+               const handleSubmit =(e) =>
+               {
+                 e.preventDefault()
+
+                 const note = {
+                    id : Number(new Date()),
+                    body: body,
+                    createdAt : new Date()
+                 }
+                 console.log("note",note)
+                 addNote(note)  //note id not defined error - you will get when you assign this line out
+                 
+               }
+                
+                return (
+                    <div>
+                        <form onSubmit = {handleSubmit}>
+                            <label>Enter Note</label> <br />
+                            <textarea value ={body} onChange = {handleChange}></textarea> <br />
+                            <input type = "submit" value = "create note"></input>
+                        </form>
+                        
+                        
+                    </div>
+                )
+            }
+
+            //3. NoteList
+            const NoteList =(props)=>
+            {
+                const {notes} = props
+                return(
+                    <div>
+                        <h2>Listing Notes - {notes.length}</h2>
+
+                        {notes.map((ele) =>
+                            {
+                                return <NoteItem key = {ele.id} {...ele}/>
+                            })}
+                        
+                    </div>
+                )
+            }
+
+            //4. NoteItem
+                const NoteItem = (props) =>
+                {
+                    const {id,body,createdAt} = props
+                    return(
+                        <div>
+                            <blockquote>{body}</blockquote>
+                            <p>created on = {createdAt.toLocaleString()}</p>
+                            <hr />
+                        </div>
+                        
+                    )
+                }
+
+            //1. 
+            const App= (props) =>
+            {
+                const [notes,setNotes] = useState([])
+
+                //5. Used to store objcets data in local storage
+                useEffect(() =>
+                {
+                    const data = localStorage.getItem(notes)
+                    console.log(data)
+                    if(data)
+                    {
+                        setNotes(JSON.parse(data))
+                    }
+                    else
+                    {
+                        setNotes([])
+                    }
+                },[])
+
+               // 1. addNote
+
+               const addNote =(noteObj)=>
+               {
+                    setNotes([noteObj,...notes])
+               }
+
+                return (
+                    <div>
+                        <h2>My Note App</h2>
+                        <NoteForm  notes ={notes} addNote={addNote}/>
+                        {JSON.stringify(notes)}
+                        <NoteList notes= {notes}/>
+                    </div>
+                )
+            }
+            ReactDOM.render(<App />,rootHandle)
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Element Variable</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script> 
+
+
+             <script type ="text/babel">
+                     const rootHandle = document.getElementById("root")
+
+                     function AuthButtons(props)
+                     {
+                            const {isLoggedIn} = props   
+                        
+                                    let button 
+                                         if(isLoggedIn)
+                                        {
+                                            button = <button>Logout</button>
+                                        }else
+                                        {
+                                             button =  <button>Login</button>
+                                
+                                        }
+                                        return(
+                                                <div>
+                                                    {button}
+                                                </div>
+                                             )
+                        }
+                                                        
+                     function App(props)
+                     {
+                        const isLoggedIn = false 
+                        return(
+                            <div>
+                                <h2>Welcome to the website</h2>
+                                <AuthButtons isLoggedIn = {isLoggedIn}/>
+                            </div>
+                        )
+                     }
+                    
+
+                        ReactDOM.render(<App />,rootHandle)
+             </script>
+    </body>
+</html>

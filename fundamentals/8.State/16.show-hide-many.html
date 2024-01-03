@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Show - Hide many article</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+    
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+
+            <script type = "text/babel">
+                const rootHandle = document.getElementById("root")
+
+                const {useState} = React 
+
+                /*  
+                    1. create 2 component App and textDisplay
+                    2. articles is present inside the App component
+                    3. Pass each article as props to TextDisplay component
+                    4. Maintain state "status" inside the textDisplay
+                    5. Display text receieved via props along with button 
+                    6. when the status is true
+                        then display text
+                        the button text needs to be hide - article title
+                    7. when the status is false 
+                        then dont display text
+                        the button text needs to be show - article title
+                    8. Add a event handler, which even clciked will change status to its opposite value. 
+                */
+
+
+                function TextDisplay(props)
+                {
+                    const [status,setStatus] = useState(true)
+
+                    return(
+                        <div>
+                             <p></p>
+                             <button></button>
+                        </div>
+                    )
+                }
+
+                function App(props)
+                {
+                    const data =[
+                        {title : "React Article" , body :"React components are JavaScript functions."},
+                        {title : "JavaScript Article" , body :"JAvascript components are JavaScript functions."},
+                        {title : "Node Article" , body :"Node components are JavaScript functions."}
+                    ]
+
+                        return(
+                            <div>
+                                <h1>Listing Articles</h1>
+
+                            </div>
+                        )
+                }
+
+                ReactDOM.render(<App />)
+        </script>
+    </body>
+</html>

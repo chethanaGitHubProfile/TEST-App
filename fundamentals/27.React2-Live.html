@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <title></title>
+     </head>
+    <body>
+
+        <div id ="root"></div>
+
+        <script src="js/react.development.js"></script>
+        <script src="js/react-dom.development.js"></script>
+        <script src="js/babel.js"></script> 
+
+         <script type = "text/babel">
+            const rootHandle = document.getElementById("root")
+
+                const {useState} = React
+                /*  1.create App
+                    2. form - input / validation
+                    3. table - display
+                    4. gender api*/
+
+                      if(Object.keys(error).length == 0)
+                      {
+                        const user = {name:name}
+                        const xhr = new XMLHttpRequest()
+                        xhr.open('GET',`https://api.genderize.io7name=${user.name}`)
+                        xhr.send()
+                        xhr.gender = result.gendersetUsers([...users,user])
+                        serFormErrors({})
+                        setName('')
+                      }
+                        else{
+                            setFormErrors(errors)
+                        } 
+        ReactDOM.render(<Register />, rootHandle)
+         </script>
+    </body>
+</html>

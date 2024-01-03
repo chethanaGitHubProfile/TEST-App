@@ -1,0 +1,57 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>display-list</title>
+        </head>
+        <body>
+            <div id ="root"></div>
+        <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const links =[
+                {id:1,name:"facebook", url:"http://www.facebook.com"},
+                {id:2,name:"instagram", url:"http://www.Instagram.com"},
+                {id:3,name:"twitter", url:"http://www.twitter.com"}
+            ]
+
+                const ele =(
+                    <div>
+                        <h2>Total Links - {links.length}</h2>
+                        <table border = "1">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Url</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                    {links.map((ele) => 
+                                        {
+                                            return (
+                                                <tr key ={ele.id}>
+                                                    <td>{ele.id}</td>
+                                                    <td>{ele.name}</td>
+                                                    <td>{ele.url}</td>
+                                                </tr>
+                                            )
+                                        })}
+                                
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                )
+            
+
+            ReactDOM.render(ele, rootHandle)
+            
+            </script>
+        </body>
+    </html>

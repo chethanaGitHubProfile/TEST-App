@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RUn once</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type ="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const {useState,useEffect} = React
+
+             function BookTickets(props)
+             {
+
+                const [count,setCount] = useState(1)
+
+                useEffect(() =>
+                {
+                    alert("component render")
+                },[ ])
+
+                const increment = ()=>
+                {
+                    setCount(count+1)
+                }
+
+                return(
+                    <div>
+                            <h1>You Have booked {count} tickets</h1>
+                            <button onClick ={increment}>+1</button>
+                    </div>
+                )
+             }
+
+                ReactDOM.render(<BookTickets />,rootHandle)
+
+        </script>
+       
+    </body>
+</html>

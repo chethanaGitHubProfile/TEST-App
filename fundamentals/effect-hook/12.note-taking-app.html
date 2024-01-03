@@ -1,0 +1,255 @@
+                <!DOCTYPE html>
+                <html>
+                    <head>
+                        <title>Create Note App test</title>
+                    </head>
+                    <body>
+                        <div id ="root"></div>
+
+                        <script src="../js/react.development.js"></script>
+                        <script src="../js/react-dom.development.js"></script>
+                        <script src="../js/babel.js"></script>
+
+                        <script type ="text/babel">
+
+                            const rootHandle = document.getElementById("root")
+
+                            const {useState,useEffect} = React 
+
+                            //Edit note
+                            const EditNoteForm=(props)=>
+                            {
+                                const {id,createdAt,editNote} = props
+                                
+                                const [notes,setNotes] = useState([])
+                                const {addNote} = props
+                                const [body,setBody] = useState(props.body)
+
+                                const handleChange =(e)=>
+                                {
+                                    setBody(e.target.value)
+                                }
+
+                                const handleSubmit =(e)=>
+                                {
+                                    e.preventDefault()
+                                    
+                                    const note ={
+                                        id : id,
+                                        body : body,
+                                        createdAt : createdAt 
+                                    }
+                                    editNote(id,note)
+                                    console.log('note',note) 
+                                    console.log(editNote())
+                                }
+                                return(
+                                    <div>
+                                        <form onSubmit ={handleSubmit}>
+                                            <label>Update Note</label><br />
+                                            <textarea value ={body} onChange ={handleChange}></textarea><br />
+                                            <input type = "submit" value ="Update note" />
+                                        </form>
+                                    </div> 
+                                )
+                            }
+
+                            const NoteForm=(props)=>
+                            {
+                                console.log('note form component',props)
+                                const [notes,setNotes] = useState([])
+                                const {addNote} = props
+                                const [body,setBody] = useState('') 
+
+                                const handleChange =(e)=>
+                                {
+                                    setBody(e.target.value)
+                                }
+
+                                useEffect(() =>
+                                {
+                                    console.log('note form',props)
+                                },[props])
+
+                                //form reset
+                                useEffect(() =>
+                                {
+                                    setBody('')
+                                },[props.notes])
+
+                                const handleSubmit =(e)=>
+                                {
+                                    e.preventDefault()
+                                    
+                                    const note ={
+                                        id : Number(new Date()),
+                                        body : body,
+                                        createdAt : new Date() 
+                                    }
+                                    console.log('note',note) 
+                                    addNote(note)
+                                    
+                                }
+                                return(
+                                    <div>
+                                        <form onSubmit ={handleSubmit}>
+                                            <label>Enter Note</label><br />
+                                            <textarea value ={body} onChange ={handleChange}></textarea><br />
+                                            <input type = "submit" value ="create note" />
+                                        </form>
+                                    </div>
+                                )
+                            }
+
+                            
+
+
+                            //Lising the Notes - 
+                            const NoteList=(props) =>
+                            {
+                                const { notes,deleteNote,editNote} = props
+                                return(
+                                    <div>
+                                        <h2>Listing Notes - {notes.length}</h2>
+
+                                        {notes.map((ele) =>{
+                                            return <NoteItem key = {ele.id} {...ele} deleteNote={deleteNote} editNote={editNote}/>
+                                            
+                                        })}
+                                    </div>
+                                )
+                            }
+
+                            //listing items 
+                            const NoteItem = ((props) =>
+                            {
+                                const {id,body,createdAt,deleteNote,editNote} = props 
+                                const [isEditable,setIsEditable] = useState(false)
+
+                                useEffect(() =>
+                                {
+                                    return() =>
+                                    {
+                                        console.log('component was unmounted')
+                                    }
+                                },[])
+                                const handleDelete = (e)=>
+                                {
+                                    const isConfirm = confirm("Are you sure?")
+                                    if(isConfirm)
+                                    {
+                                        //make an api call to server to remove from server
+                                        deleteNote(id)
+                                    }
+                                }
+
+                                //edit option
+                                const handleEdit =(e) =>
+                                {
+                                    setIsEditable(!isEditable)
+                                }
+
+                            // or  //cancel option
+                                //const handleCancel = (e)=>
+                            // {
+                                //    setIsEditable(false)
+                                //}
+
+                                useEffect(() =>
+                                {
+                                    setIsEditable(false)
+                                },[body])
+
+                                return(
+                                    <div>
+                                        {
+                                            isEditable ? <div>
+                                                <EditNoteForm 
+                                                id = {id}
+                                                body = {body}
+                                                createdAt = {createdAt}
+                                                editNote ={editNote}/>
+
+                                                <button onClick = {handleEdit}>Cancel</button>
+                                                 
+                                            </div> : 
+                                            <div>
+                                                <blockquote>{body}</blockquote>
+                                                <p>created on {createdAt.toLocaleString() }</p>
+                                                <button onClick = {handleEdit}>edit</button>
+                                                <button onClick = {handleDelete}>delete</button>
+                                                <hr />
+                                                
+                                            </div>
+                                        }                                    
+                                    </div>
+                                )
+                            })
+                            const App = (props) =>
+                            {
+                                const [notes,setNotes] = useState([])
+
+
+                                // used to store in Local storage 
+                                useEffect(() =>
+                                { 
+                                const data = localStorage.getItem("notes")
+                                    console.log(data)
+                                    if(data)
+                                    { 
+                                        setNotes(JSON.parse(data))
+                                    }
+                                    else{
+                                        setNotes([])
+                                }
+                                }, [])
+
+
+                                //used to store in local storage - even if page is refreshed data will not be deleted unless we
+                                // do "localstorage.clear() from console"
+                                useEffect(() =>
+                                {
+                                    localStorage.setItem('notes',JSON.stringify(notes))
+                                },[notes])
+
+                                const addNote = (noteObj) =>
+                                {
+                                    setNotes([noteObj, ...notes])
+                                }
+
+                                //remove 
+                                const deleteNote = (id) =>
+                                {
+                                    setNotes(notes.filter(ele => ele.id !=id))
+                                }
+
+                                //edit note - 2
+                                const editNote = (id,noteObj) =>
+                                {
+                                    
+                                    const result = notes.map(ele => {
+                                        if(ele.id == id)
+                                        {
+                                            return{...ele, ...noteObj}
+                                        }
+                                        else{
+                                            return{...ele}
+                                        }
+                                    })
+                                    setNotes(result)
+                                }
+
+                                return(
+                                    <div>
+                                        <h1>My Note App</h1>
+                                        <NoteForm addNote = {addNote} notes ={notes}/>
+                                        {JSON.stringify(notes)}
+                                        {notes.length  > 0 ? <NoteList notes ={notes} deleteNote ={deleteNote} editNote ={editNote}/> : 'no notes found'}     
+                                    </div>
+                                )
+                            }
+                                ReactDOM.render(<App />,rootHandle)
+
+                        </script>
+                    </body>
+                </html>

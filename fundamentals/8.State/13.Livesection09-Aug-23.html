@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script>
+
+        <script type =  "text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const { useState, useEffect } = React 
+
+        const NoteForm = (props) => {
+            const { addNote } = props 
+            const [body, setBody] = useState('')
+
+            const handleChange = (e) => {
+                setBody(e.target.value) 
+            }
+
+            const handleSubmit = (e) => {
+                e.preventDefault()
+                const note = {
+                    id: Number(new Date()), 
+                    body: body,
+                    createdAt: new Date()
+                }
+                addNote(note) 
+            }
+
+            return (
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        <label> Enter Note  </label>  <br /> 
+                        <textarea value={body} onChange={handleChange}></textarea> <br /> 
+                        <input type="submit" value="create note" /> 
+                    </form> 
+                </div> 
+            )
+        }
+
+        const NoteList = (props) => {
+            const { notes, deleteNote } = props 
+            return (
+                <div>
+                    <h2> Listing Notes - { notes.length } </h2> 
+                    { notes.map((ele) => {
+                        return <NoteItem 
+                                    key={ele.id}
+                                    {...ele}
+                                    deleteNote={deleteNote} 
+                                /> 
+                    })}
+                </div> 
+            )
+        }
+
+        const NoteItem = (props) => {
+            const { id, body, createdAt, deleteNote } = props 
+
+            const handleDelete = (e) => {
+                const isConfirm = confirm("Are you sure?")
+                if(isConfirm) {
+                    deleteNote(id) 
+                }
+            }
+
+            return (
+                <div> 
+                    <blockquote> {body} </blockquote>
+                    <p> created on { new Date(createdAt).toLocaleString() } </p> 
+                    <button onClick={handleDelete}> delete </button> 
+                    <hr /> 
+                </div> 
+            )
+        }
+
+        const App = (props) => {
+            const [notes, setNotes] = useState([])
+
+            useEffect(() => {
+                const data = localStorage.getItem("notes")
+                if(data) {
+                    setNotes(JSON.parse(data))
+                } 
+            }, [])
+
+            useEffect(() => { 
+                localStorage.setItem("notes", JSON.stringify(notes))
+            }, [notes])
+
+            const addNote = (noteObj) => {
+                setNotes([noteObj, ...notes])
+            }
+
+            const deleteNote = (id) => {
+                setNotes(notes.filter(ele => ele.id != id))
+            }
+
+            return (
+                <div> 
+                    <h1> My Notes App </h1> 
+                    <NoteForm addNote={addNote} /> 
+
+                    { notes.length > 0 ? <NoteList 
+                                            notes={notes} 
+                                            deleteNote={deleteNote}
+                                          /> : 'no notes found' }
+                </div> 
+            )
+        }
+
+        ReactDOM.render(<App />, rootHandle)
+
+        </script>
+    </body>
+</html>

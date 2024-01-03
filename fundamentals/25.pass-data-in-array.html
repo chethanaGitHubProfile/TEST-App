@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+     <head>
+        <title></title>
+     </head>
+    <body>
+
+        <div id ="root"></div>
+
+        
+        
+
+         <script type = "text/babel">
+            const rootHandle = document.getElementById("root")
+
+                function Parent(props)
+                {
+                    const names =["Joye","Rechal","Ross","Monaka"]
+                        //callback
+                        function getHugs(name)
+                        {
+                            alert(`${names} has hugges parent`)
+                        }
+                        return(
+                                <div>
+                                      <h1>Parent Component</h1>
+                                      {names.map((ele,i) => {
+                                        return <Child key ={i} name ={ele} func={getHugs}/>
+                                      })}
+                                </div>
+                            )
+                }
+
+                function Child(props)
+                {
+                    return(
+                            <div>
+                                <h2>Child Component -{props.names}</h2>
+                                <button onClick= {() => {
+                                    {props.func(props.names)}
+                                }}>HUG</button>
+                            </div>
+                        )
+                }
+
+                ReactDOM.render(<Parent/>,rootHandle)
+         </script>
+    </body>
+</html>

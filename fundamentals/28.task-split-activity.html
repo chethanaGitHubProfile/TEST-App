@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Display task list</title>
+    </head>
+        <body>
+            <div id ="root"></div>
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+                <script type ="text/babel">
+                    const rootHandle = document.getElementById("root")
+
+                    function App(props)
+                    {
+                        const tasks =[
+                            {id :1, title:"Taslk1", isCompleted : true},
+                            {id :2, title:"Taslk2", isCompleted : true},
+                            {id :3, title:"Taslk3", isCompleted : false},
+                            {id :4, title:"Taslk4", isCompleted : true},
+                            {id :5, title:"Taslk5", isCompleted : false},
+                            {id :6, title:"Taslk6", isCompleted : true}
+                        ]
+                            const completedTask = tasks.filter((task) => {
+                                return task.isCompleted
+                            })
+
+                            const incompletedTask = tasks.filter((task) => {
+                                return !task.isCompleted
+                            })
+
+                            return(
+                                <div>
+                                    <TaskList tasks = {completedTask} />
+                                    <TaskList tasks = {incompletedTask} />
+                                </div>
+                            )
+
+                            function TaskList(props)
+                            {
+                                return(
+                                    <div>
+                                        <h1></h1>
+                                        <ul>
+                                            {props.tasks.map((task) => {
+                                                return <li key = {task.id}>{task.title}</li>
+                                            })}
+                                        </ul>
+                                    </div>
+                                )
+                            }
+
+                    }       
+
+                    ReactDOM.render(<App />,rootHandle  )
+
+                </script>
+        </body>
+</html>

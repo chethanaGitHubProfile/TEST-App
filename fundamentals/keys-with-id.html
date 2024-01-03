@@ -1,0 +1,46 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>display-list</title>
+        </head>
+        <body>
+            <div id ="root"></div>
+        <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+            const rootHandle = document.getElementById("root")
+
+            const users = [
+                        {id :1,name : "user1",email:"users1@gmail.com"},
+                        {id :2,name : "user2",email:"users2@gmail.com"},
+                        {id :3,name : "user3",email:"users3@gmail.com"},
+                        {id :4,name : "user4",email:"users4@gmail.com"},
+                        {id :5,name : "user5",email:"users5@gmail.com"}
+                    ]
+                const ele =(
+                    <div>
+                        <h2>Listing Users -{users.length}</h2>
+                        <ul>
+                            {users.map((ele) =>
+                                {
+                                    return <li key ={ele.id}>{ele.name}</li>
+                                })}
+                        </ul> 
+
+                        <ul>
+                            {users.map((ele) => 
+                                {
+                                    return <li key ={ele.id}>{ele.email}</li>
+                                })}
+                        </ul>
+                    </div>
+                )
+
+            ReactDOM.render(ele, rootHandle)
+            
+            </script>
+        </body>
+    </html>

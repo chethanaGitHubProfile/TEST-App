@@ -1,0 +1,35 @@
+ <!DOCTYPE html>
+ <html>
+    <head>
+    <title>Display AppointmentS</title>
+</head>
+<body>
+     <h2>Total Appointments - <span id ="count"></span></h2> 
+
+     <ul id ="Listing">
+
+     </ul>
+
+    <script>
+        const Appointments =[
+            {id:1,name:"Adam",mobile:"7656785467",dateTime:"2023-07-23 10:45 AM"},
+            {id:2,name:"Sara",mobile:"6789065467",dateTime:"2023-07-24 11:00 AM"},
+            {id:3,name:"Adam",mobile:"7656785467",dateTime:"2023-07-25 11:15 AM"},
+            {id:3,name:"Basha",mobile:"7656785467",dateTime:"2023-07-28 11:15 AM"}
+        ]
+
+        //document.body.children[0].children[0]
+
+        const countHandle = document.getElementById("count")
+        const ListingHandle = document.getElementById("Listing")
+        countHandle.textContent = Appointments.length
+
+        Appointments.forEach((ele) => { 
+              const liTag = document.createElement("li")
+              liTag.textContent = `${ele.name} - ${ele.mobile} - ${ele.dateTime}`
+              ListingHandle.appendChild(liTag) 
+        })
+        
+    </script>
+</body>
+ </html>

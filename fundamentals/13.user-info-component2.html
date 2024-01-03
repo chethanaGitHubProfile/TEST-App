@@ -1,0 +1,49 @@
+    <!DOCTYPE html>
+    <html>
+        <head>
+        <title>User-info-component</title>
+        </head>
+
+        <body>
+            <div id ="root"></div>
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+
+                const rootHandle = document.getElementById("root")
+
+                const UserInfo1 ={ 
+                    "id": 1, 
+                    "email": "george@gmail.com", 
+                    "first_name": "George", "avatar": 
+                    "https://randomuser.me/api/portraits/men/32.jpg" }
+
+                    const UserInfo2 = { 
+                        "id": 2,
+                         "email": "weaver@gmail.com", 
+                         "first_name": "Weaver", 
+                         "avatar": "https://randomuser.me/api/portraits/men/46.jpg" }
+
+                         function User (props){
+                            return(
+                                <div>
+                                    <h3>{props.name}</h3>
+                                    <img src={props.avatar}/>
+                                    <hr />
+                                </div>
+                            )
+                         }
+                           
+                         const ele =(
+                            <div>
+                            <User name ={UserInfo1.first_name} avatar = {UserInfo1.avatar}/>
+                            <User name ={UserInfo2.first_name} avatar = {UserInfo2.avatar}/>
+                            </div>
+                            )
+                    
+                ReactDOM.render(ele,rootHandle)
+        </script>        
+        </body>
+    </html>

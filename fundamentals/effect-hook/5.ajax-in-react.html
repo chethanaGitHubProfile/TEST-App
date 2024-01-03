@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ajax-in-React</title>
+    </head>
+    <body>
+        <div id = "root"></div>
+    
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.js"></script>
+
+    <script type ="text/babel">
+      const rootHandle = document.getElementById("root")
+
+      const url ="https://restcountries.com/v3.1/all?fields=name,capital"
+
+      const {useState,useEffect} = React
+
+      function CountriesList(props)
+      {
+        console.log()
+        const [countries,setCountries] = useState([])
+
+        useEffect(() =>
+        {
+                const xhr = new XMLHttpRequest()
+                xhr.open('GET',url)
+                xhr.send()
+                xhr.onload = function()
+                {
+                    console.log("response from server")
+                    const result = JSON.parse(xhr.responseText)
+                    setCountries(result)
+                }
+        },[])
+
+
+        return(
+            <div>
+                <h1>ListingCountries - {countries.length}</h1>
+                <ul>
+                     {countries.map((country,i) =>{
+                        console.log(country.name)
+                        return <li key = {i}>{country.name.common} - {country.capital}</li>
+                     })}
+
+
+
+                    
+                </ul>
+                
+            </div>
+        )
+      }
+
+        ReactDOM.render(<CountriesList />,rootHandle)
+    </script>
+    </body>
+</html>

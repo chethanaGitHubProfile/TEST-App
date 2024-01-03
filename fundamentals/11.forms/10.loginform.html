@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login Form</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+        <script src="../js/react.development.js"></script>
+        <script src="../js/react-dom.development.js"></script>
+        <script src="../js/babel.js"></script> 
+
+
+             <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+                const {useState} = React
+                    const LoginForm = (props) =>
+                    {
+                        const [userName,setuserName] = useState('')
+                        const [password,setPassword] = useState('')
+                       // const {addFormData} = props
+
+                        const handleUserNameChange = (e) =>
+                        {
+                            const userNameInput  = e.target.value 
+                            setuserName(userNameInput)
+                        }
+
+                        const handlePasswordChnage =(e) =>
+                        {
+                            const passwordInput = e.target.value 
+                            setPassword(passwordInput)
+                        }
+
+                        const handleSubmit = (e) =>
+                        {
+                            e.preventDefault()
+
+                            if(userName && password)
+                            {
+
+                            }
+                            else{
+                                    alert("both filed are required")
+                            }
+
+                            const formData = {
+                                userName : userName,
+                                password : password
+                            }
+                            console.log("form data",formData)       
+                        }
+
+                       
+                        return(
+                            <div>
+                                <h2>Login Form</h2> <br />
+
+                                <label>Email Address</label> <br />
+                                <input type ="text" value ={userName}  onChange ={handleUserNameChange}/> <br /> <br />
+
+                                <label>Password</label> <br />
+                                <input type ="text" value ={password} onChange ={handlePasswordChnage} /> <br /> <br />
+
+                                <input type ="submit" value ="Sign in"  onClick = {handleSubmit}/>
+                                
+                            </div>
+                        )
+                    }
+                    ReactDOM.render(<LoginForm />,rootHandle)       
+            </script>
+    </body>
+</html>

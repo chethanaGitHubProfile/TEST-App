@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Inline inelse</title>
+    </head>
+    <body>
+        <div id ="root"></div>
+
+            <script src="js/react.development.js"></script>
+            <script src="js/react-dom.development.js"></script>
+            <script src="js/babel.js"></script> 
+
+            <script type ="text/babel">
+                const rootHandle = document.getElementById("root")
+
+                function CartStatus(props)
+                {
+                    return(
+                        <div>
+                            {
+                                props.items.length ===0 ? <p>Your cart is empty</p> : <p>You have {props.items.length} items in the cart</p>
+                            }
+                                
+                        </div>
+                    )
+                }
+
+                function App(props)
+                {
+                    const items =[{},{   }]
+                    return(
+                        <div>
+                            <h2>Cart Page</h2>
+                            <CartStatus items ={items}/>
+                        </div>
+                    )
+                }
+
+                ReactDOM.render(<App />,rootHandle)
+        </script>
+    </body>
+</html>
